@@ -1,4 +1,4 @@
-package com.abistudio.testspringboot;
+package com.abistudio.testspringboot.myuser;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

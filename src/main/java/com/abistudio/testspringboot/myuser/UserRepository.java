@@ -1,4 +1,4 @@
-package com.abistudio.testspringboot;
+package com.abistudio.testspringboot.myuser;
 
 import java.sql.SQLException;
 import java.util.Vector;
