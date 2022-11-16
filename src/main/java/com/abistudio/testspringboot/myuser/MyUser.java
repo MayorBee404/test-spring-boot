@@ -1,4 +1,4 @@
-package com.abistudio.testspringboot;
+package com.abistudio.testspringboot.myuser;
 
 
 public class MyUser {
