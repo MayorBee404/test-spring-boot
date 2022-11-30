@@ -23,8 +23,19 @@ public class ProductController {
     @PostMapping("/create")
 
     public ResponseEntity<Product> createNewProduct(@RequestBody @Valid Product newProductData){
+<<<<<<< HEAD
         Product saveProduct = productRepository.save(newProductData);
         URI newProductURI = URI.create("/product/" + saveProduct.getId());
         return ResponseEntity.created(newProductURI).body(saveProduct);
+=======
+
+        Product saveProduct = productRepository.save(newProductData);
+
+        URI newProductURI = URI.create("/product/" + saveProduct.getId());
+
+        return ResponseEntity.created(newProductURI).body(saveProduct);
+
+
+>>>>>>> origin/main
     }
 }
