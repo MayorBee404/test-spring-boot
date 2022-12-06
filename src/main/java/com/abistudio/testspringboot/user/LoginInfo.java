@@ -9,6 +9,19 @@ public class LoginInfo {
     @Length(min = 5, max = 50)
     private String username;
 
+    @NotNull
+    @Length(min = 8, max = 16)
+    private String password;
+
+    public LoginInfo() {
+
+    }
+
+    public LoginInfo(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -24,8 +37,4 @@ public class LoginInfo {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    @NotNull
-    @Length(min = 8, max = 16)
-    private String password;
 }

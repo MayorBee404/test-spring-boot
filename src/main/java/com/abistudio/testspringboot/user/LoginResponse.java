@@ -3,6 +3,7 @@ package com.abistudio.testspringboot.user;
 public class LoginResponse {
 
     private String username;
+    private String accesToken;
 
     public String getUsername() {
         return username;
@@ -19,8 +20,6 @@ public class LoginResponse {
     public void setAccesToken(String accesToken) {
         this.accesToken = accesToken;
     }
-
-    private String accesToken;
 
     public LoginResponse(){
 
