@@ -47,6 +47,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginInfo loginInfo) {
         Authentication authentication = authenticationManager.authenticate(
@@ -59,6 +60,9 @@ public class UserController {
         return ResponseEntity.ok(loginResponse);
     }
 
+    //TODO 6.Buat sebuah fungsi/API mcroservice yang menerima data akun user baru (RegistrationInfo) dengan spesifikasi sbb:
+    //TODO 6c. Jika user berhasil dibuat (tidak ada error), maka API tersebut mengembalikan HTTP 201 (Created) dengan body kosong
+    //TODO 6d. Jika user gagal dibuat (misalnya terjadi error) maka diserahkan/tergantung ke perilaku asli sistem (tidak diatur)
     @PostMapping("/register")
     public ResponseEntity<?> registrasi(@RequestBody @Valid RegistrationInfo registrationInfo) {
         UserInfo userInfo = new UserInfo();

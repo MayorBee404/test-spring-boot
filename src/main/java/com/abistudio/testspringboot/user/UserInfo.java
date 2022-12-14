@@ -14,6 +14,7 @@ import java.util.Collection;
 @Entity
 @Table(name = "user")
 public class UserInfo  implements UserDetails {
+    //TODO 4. Ubah tabel user di database: tambahkan kolom name dan address, masing-masing VARCHAR(50). Kemudian sesuaikan class UserInfo dengan perubahan tersebut.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

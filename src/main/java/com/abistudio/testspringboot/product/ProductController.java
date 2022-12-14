@@ -22,6 +22,8 @@ public class ProductController {
         return productRepository.findAll();
     }
 
+    //TODO 2. Buat sebuah fungsi/API mcroservice yang berfungsi memberikan data untuk sebuah produk saja, dengan spesifikasi sbb:
+    //TODO 2a. Path untuk mengakses produk tersebut adalah /produk/id dimana id akan digantikan oleh nomor ID untuk produk yang diinginkan
     @GetMapping("{id}")
     public ResponseEntity<Optional<Product>> Id(@PathVariable("id")Integer id){
         if(productRepository.findById(id).isPresent()){
@@ -33,10 +35,13 @@ public class ProductController {
     @PostMapping("/create")
     public ResponseEntity<Product> createNewProduct(@RequestBody @Valid Product newProductData){
         try {
+            //TODO 2b. Jika produk ditemukan, maka API tersebut mengembalikan HTTP 200 (OK) dengan body berisi data produk yang ditemukan
             Product saveProduct = productRepository.save(newProductData);
+            //TODO 3. Modifikasi HTTP Response yang dikembalikan aplikasi pada saat create produk baru agar mengandung URL produk sesuai nomor 2 diatas.
             URI newProductURI = URI.create("/product/" + saveProduct.getId());
             return ResponseEntity.created(newProductURI).body(saveProduct);
         }catch (Exception e){
+            //TODO 2c. Jika produk tidak ditemukan, maka API tersebut mengembalikan HTTP Response 404 (Not Found) dengan body kosong
             return ResponseEntity.notFound().build();
         }
 

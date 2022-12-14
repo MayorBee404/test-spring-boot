@@ -16,6 +16,7 @@ public class JwtTokenUtility {
     @Value("${app.jwt.issuer-name}")
     private String ISSUER_NAME;
 
+    //TODO 1.Periode berlaku JWT diubah menjadi 3 hari
     @Value("${app.jwt.period-of-validity}")
     private long PERIOD_OF_VALIDITY;
 

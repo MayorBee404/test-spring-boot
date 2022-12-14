@@ -28,6 +28,7 @@ public class ApplicationSecurityConfiguration {
         return new CustomUserDetailService();
     }
 
+    //TODO 6b. Password disimpan ke database dalam bentuk telah ter-encode, menggunakan BCrypt
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -38,6 +39,7 @@ public class ApplicationSecurityConfiguration {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
+    //TODO 6a. Validasi terhadap data akun user baru otomatis dilakukan (gunakan annotation)
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 
@@ -46,6 +48,7 @@ public class ApplicationSecurityConfiguration {
                 .sessionManagement(httpSecuritySessionManagementConfigurer ->
                         httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeRequests()
+                //TODO 7. Lindungi microservice yang dibuat pada nomor 2 dengan authentikasi berbasis JWT, dan biarkan microservices yang dibuat pada nomor 6 tetap terbuka (dapat diakses siapapun).
                 .antMatchers("/login").permitAll()
                 .antMatchers("/register").permitAll()
                 .anyRequest().permitAll();
