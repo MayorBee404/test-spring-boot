@@ -28,7 +28,6 @@ public class ApplicationSecurityConfiguration {
         return new CustomUserDetailService();
     }
 
-    //TODO 6b. Password disimpan ke database dalam bentuk telah ter-encode, menggunakan BCrypt
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -39,7 +38,6 @@ public class ApplicationSecurityConfiguration {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
-    //TODO 6a. Validasi terhadap data akun user baru otomatis dilakukan (gunakan annotation)
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 

@@ -61,6 +61,8 @@ public class UserController {
     }
 
     //TODO 6.Buat sebuah fungsi/API mcroservice yang menerima data akun user baru (RegistrationInfo) dengan spesifikasi sbb:
+    //TODO 6a. Validasi terhadap data akun user baru otomatis dilakukan (gunakan annotation)
+    //TODO 6b. Password disimpan ke database dalam bentuk telah ter-encode, menggunakan BCrypt
     //TODO 6c. Jika user berhasil dibuat (tidak ada error), maka API tersebut mengembalikan HTTP 201 (Created) dengan body kosong
     //TODO 6d. Jika user gagal dibuat (misalnya terjadi error) maka diserahkan/tergantung ke perilaku asli sistem (tidak diatur)
     @PostMapping("/register")
