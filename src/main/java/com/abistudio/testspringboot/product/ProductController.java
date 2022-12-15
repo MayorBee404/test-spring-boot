@@ -27,6 +27,7 @@ public class ProductController {
     @GetMapping("{id}")
     public ResponseEntity<Optional<Product>> Id(@PathVariable("id")Integer id){
         if(productRepository.findById(id).isPresent()){
+            //TODO 2b. Jika produk ditemukan, maka API tersebut mengembalikan HTTP 200 (OK) dengan body berisi data produk yang ditemukan
             return ResponseEntity.ok(productRepository.findById(id));
         }
         return ResponseEntity.notFound().build();
@@ -35,7 +36,6 @@ public class ProductController {
     @PostMapping("/create")
     public ResponseEntity<Product> createNewProduct(@RequestBody @Valid Product newProductData){
         try {
-            //TODO 2b. Jika produk ditemukan, maka API tersebut mengembalikan HTTP 200 (OK) dengan body berisi data produk yang ditemukan
             Product saveProduct = productRepository.save(newProductData);
             //TODO 3. Modifikasi HTTP Response yang dikembalikan aplikasi pada saat create produk baru agar mengandung URL produk sesuai nomor 2 diatas.
             URI newProductURI = URI.create("/product/" + saveProduct.getId());
