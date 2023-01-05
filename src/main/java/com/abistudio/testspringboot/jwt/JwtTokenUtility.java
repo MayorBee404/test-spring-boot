@@ -29,6 +29,7 @@ public class JwtTokenUtility {
         return Jwts.builder()
                 .setSubject(user.getUsername())
                 .setIssuer(ISSUER_NAME)
+                .claim("roles", user.getRoles().toString())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis()+PERIOD_OF_VALIDITY))
                 .signWith(SignatureAlgorithm.HS512, JWT_SECRET_KEY)
@@ -48,7 +49,7 @@ public class JwtTokenUtility {
     private String getSubject(String accessToken){
         return parseClaims(accessToken).getBody().getSubject();
     }
-    private Jws<Claims> parseClaims(String accessToken){
+    protected Jws<Claims> parseClaims(String accessToken){
         try {
             return Jwts.parser()
                     .setSigningKey(JWT_SECRET_KEY)

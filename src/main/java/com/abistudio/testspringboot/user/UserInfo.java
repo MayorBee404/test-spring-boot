@@ -1,20 +1,26 @@
 package com.abistudio.testspringboot.user;
 
+import com.abistudio.testspringboot.role.Role;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.websocket.ClientEndpoint;
-import java.util.Collection;
+import java.util.*;
 
 @Entity
 @Table(name = "user")
-public class UserInfo  implements UserDetails {
-    //TODO 4. Ubah tabel user di database: tambahkan kolom name dan address, masing-masing VARCHAR(50). Kemudian sesuaikan class UserInfo dengan perubahan tersebut.
+public class UserInfo implements UserDetails {
+    @ManyToMany
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -29,36 +35,21 @@ public class UserInfo  implements UserDetails {
     @Length(min = 8, max = 64)
     private String password;
 
-    @Nullable
+    @Column(nullable = false, length = 50)
+    @NotNull
     @Length(max = 50)
     private String name;
 
-    @Nullable
-    public String getName() {
-        return name;
-    }
-
-    public void setName(@Nullable String name) {
-        this.name = name;
-    }
-
-    @Nullable
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(@Nullable String address) {
-        this.address = address;
-    }
-
-    @Nullable
+    @Column(nullable = false, length = 50)
+    @NotNull
     @Length(max = 50)
     private String address;
 
     public UserInfo() {
+
     }
 
-    public UserInfo(String username, String password, @Nullable String name, @Nullable String address) {
+    public UserInfo(String username, String password, String name, String address) {
         this.username = username;
         this.password = password;
         this.name = name;
@@ -74,8 +65,64 @@ public class UserInfo  implements UserDetails {
     }
 
     @Override
+    @NotNull
     public String getUsername() {
         return username;
+    }
+
+    public void setUsername(@NotNull String username) {
+        this.username = username;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        for (Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        return authorities;
+    }
+
+
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public void addRole(Role role){
+        this.roles.add(role);
+    }
+
+    @Override
+    @NotNull
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(@NotNull String password) {
+        this.password = password;
+    }
+
+    @NotNull
+    public String getName() {
+        return name;
+    }
+
+    public void setName(@NotNull String name) {
+        this.name = name;
+    }
+
+    @NotNull
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(@NotNull String address) {
+        this.address = address;
     }
 
     @Override
@@ -98,22 +145,5 @@ public class UserInfo  implements UserDetails {
         return true;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
 }
